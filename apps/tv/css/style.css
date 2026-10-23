@@ -1,0 +1,212 @@
+html, body {
+  margin: 0;
+  width: 1920px;
+  height: 1080px;
+  overflow: hidden;
+  background: #000;
+  color: #fff;
+  font-family: "SamsungOne", "Helvetica Neue", Arial, sans-serif;
+}
+
+.screen { position: absolute; top: 0; left: 0; width: 1920px; height: 1080px; }
+.hidden, .screen.hidden { display: none; }
+
+/* ---------- Setup ---------- */
+#setup { background: radial-gradient(circle at 30% 30%, #26357a 0%, #0b1033 70%); }
+.setup-wrap {
+  display: flex; align-items: center; justify-content: space-between;
+  height: 100%; padding: 0 160px; box-sizing: border-box;
+}
+.brand { font-size: 44px; font-weight: 800; color: #ffd84a; letter-spacing: 1px; display: flex; align-items: center; }
+.brand img { width: 72px; height: 72px; margin-right: 18px; }
+.setup-text h1 { font-size: 84px; margin: 16px 0 40px; line-height: 1.05; max-width: 960px; }
+.setup-steps { font-size: 44px; line-height: 1.7; padding-left: 56px; margin: 0; }
+.setup-code { font-size: 120px; font-weight: 900; letter-spacing: 14px; margin-top: 36px; color: #ffd84a; font-family: "SamsungOne", "Helvetica Neue", Arial, sans-serif; }
+.setup-code:empty { display: none; }
+.setup-url { font-size: 34px; opacity: .7; margin-top: 44px; font-family: monospace; }
+.setup-wait { font-size: 30px; opacity: .55; }
+.qr { background: #fff; border-radius: 32px; padding: 24px; line-height: 0; }
+.qr img { width: 520px; height: 520px; image-rendering: pixelated; }
+
+/* ---------- Shared TV header ---------- */
+.tv-top { position: absolute; left: 0; right: 0; top: 0; height: 150px; display: flex; align-items: center; padding: 0 80px; box-sizing: border-box; }
+.tv-logo { width: 84px; height: 84px; margin-right: 28px; }
+.tv-title { font-size: 56px; font-weight: 800; letter-spacing: -1px; }
+.tv-clock { margin-left: auto; font-size: 44px; font-weight: 600; opacity: .85; }
+
+/* ---------- Channel picker ---------- */
+#picker { background: radial-gradient(circle at 50% 0%, #22307f 0%, #0a0f33 70%); }
+.channel-row { position: absolute; top: 230px; left: 0; right: 0; display: flex; justify-content: center; }
+.ch-card {
+  width: 640px; margin: 0 30px; border-radius: 36px; overflow: hidden;
+  background: #141b4d; border: 6px solid transparent; transition: transform .2s;
+  box-shadow: 0 20px 50px rgba(0,0,0,.35);
+}
+.ch-card.focused { border-color: #fff; transform: scale(1.06); box-shadow: 0 30px 80px rgba(0,0,0,.55); }
+.ch-thumb { position: relative; height: 360px; background: #0a0f33; overflow: hidden; }
+.ch-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.ch-rest { position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.ch-moon { width: 110px; height: 110px; margin-bottom: 10px; }
+.ch-rest-title { font-size: 64px; font-weight: 300; letter-spacing: 4px; color: #fff; }
+.ch-rest-when { font-size: 34px; font-weight: 600; color: #ffd84a; margin-top: 10px; }
+.ch-num { position: absolute; left: 22px; top: 22px; font-size: 32px; font-weight: 900; padding: 8px 18px; border-radius: 12px; background: rgba(0,0,0,.7); letter-spacing: 2px; }
+.ch-live { position: absolute; right: 22px; top: 22px; font-size: 30px; font-weight: 800; padding: 8px 18px; border-radius: 12px; background: #e5242c; }
+.ch-body { padding: 26px 32px 32px; }
+.ch-name { font-size: 54px; font-weight: 800; display: flex; align-items: center; }
+.ch-emoji { width: 72px; height: 72px; border-radius: 20px; font-size: 44px; line-height: 72px; text-align: center; margin-right: 20px; }
+.ch-status { font-size: 34px; opacity: .8; margin-top: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ch-card.on .ch-status { color: #ffd84a; opacity: 1; }
+.ch-card.off .ch-status { opacity: .7; }
+.guide-btn {
+  position: absolute; left: 50%; bottom: 90px; transform: translateX(-50%);
+  font-size: 42px; font-weight: 800; padding: 22px 56px; border-radius: 999px;
+  background: rgba(255,255,255,.12); border: 5px solid transparent;
+}
+.guide-btn.focused { background: #fff; color: #0b1033; transform: translateX(-50%) scale(1.06); }
+.guide-icon { margin-right: 10px; }
+
+/* ---------- Channels Guide ---------- */
+#guide { background: #0a0f33; }
+.g-days { display: flex; margin-left: 60px; }
+.g-day { font-size: 32px; font-weight: 700; padding: 12px 26px; margin-right: 10px; border-radius: 14px; opacity: .6; border: 4px solid transparent; }
+.g-day.active { opacity: 1; background: rgba(255,255,255,.14); }
+.g-day.focused { background: #fff; color: #0b1033; }
+.g-grid { position: absolute; top: 160px; left: 0; right: 0; height: 560px; display: flex; }
+.g-labels { width: 320px; flex: none; padding-top: 70px; }
+.g-label { height: 200px; margin-bottom: 16px; display: flex; align-items: center; padding-left: 60px; box-sizing: border-box; opacity: .7; }
+.g-label.current { opacity: 1; }
+.g-ch { font-size: 24px; font-weight: 900; letter-spacing: 2px; opacity: .7; width: 0; position: relative; top: -64px; left: 2px; white-space: nowrap; }
+.g-emoji { width: 76px; height: 76px; border-radius: 22px; font-size: 46px; line-height: 76px; text-align: center; flex: none; margin-right: 18px; }
+.g-name { font-size: 38px; font-weight: 800; line-height: 1.05; }
+.g-viewport { position: relative; flex: 1; overflow: hidden; }
+.g-track { position: absolute; top: 0; left: 0; width: 7000px; height: 100%; transition: transform .25s; }
+.g-hours { position: relative; height: 70px; border-bottom: 2px solid rgba(255,255,255,.15); }
+.g-hour { position: absolute; top: 14px; font-size: 28px; font-weight: 600; opacity: .7; padding-left: 10px; border-left: 2px solid rgba(255,255,255,.25); height: 56px; box-sizing: border-box; }
+.g-rows { position: relative; }
+.g-row {
+  position: relative; height: 200px; margin-bottom: 16px; border-radius: 18px;
+  background: repeating-linear-gradient(135deg, rgba(255,255,255,.035) 0 22px, rgba(255,255,255,.07) 22px 44px);
+}
+.g-empty { position: absolute; left: 20px; top: 70px; font-size: 32px; opacity: .45; padding: 6px 16px; border-radius: 12px; border: 4px solid transparent; }
+.g-empty.focused { opacity: 1; border-color: #fff; }
+.g-block {
+  position: absolute; top: 10px; height: 180px; box-sizing: border-box; border-radius: 18px; overflow: hidden;
+  background: #24308a; border: 5px solid transparent;
+}
+.g-block img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
+.g-block.done { opacity: .45; }
+.g-block.now { background: #3b2a9a; }
+.g-block.focused { border-color: #fff; box-shadow: 0 10px 40px rgba(0,0,0,.6); z-index: 2; }
+.g-btext {
+  position: absolute; left: 0; right: 0; bottom: 0; padding: 40px 18px 14px;
+  background: linear-gradient(to top, rgba(6,9,30,.95) 30%, rgba(6,9,30,0));
+}
+.g-btitle { font-size: 30px; font-weight: 800; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-shadow: 0 2px 6px rgba(0,0,0,.6); }
+.g-btime { font-size: 24px; opacity: .9; margin-top: 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.g-onnow { background: #e5242c; border-radius: 8px; padding: 2px 10px; font-weight: 800; font-size: 22px; margin-left: 8px; }
+.g-now { position: absolute; top: 58px; bottom: 0; width: 4px; background: #ff3b4e; box-shadow: 0 0 16px #ff3b4e; }
+.g-now::before { content: ""; position: absolute; top: -8px; left: -8px; width: 20px; height: 20px; border-radius: 50%; background: #ff3b4e; }
+.g-detail {
+  position: absolute; left: 80px; right: 80px; bottom: 80px; height: 210px; border-radius: 28px;
+  background: rgba(255,255,255,.07); display: flex; align-items: center; padding: 0 36px; box-sizing: border-box;
+}
+.gd-info { flex: 1; min-width: 0; }
+.gd-title { font-size: 50px; font-weight: 800; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.gd-time { font-size: 32px; opacity: .85; margin-top: 10px; }
+.gd-live { color: #ff6b6b; font-weight: 800; }
+.gd-shows { display: flex; margin-left: 30px; }
+.gd-show { width: 210px; margin-left: 18px; font-size: 22px; }
+.gd-show img, .gd-show i { display: block; width: 210px; height: 118px; object-fit: cover; border-radius: 12px; background: #1b2050; }
+.gd-show.channel img { object-fit: contain; background: #1b2050; }
+.gd-show span { display: block; margin-top: 8px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; opacity: .85; }
+.g-hint { position: absolute; left: 0; right: 0; bottom: 26px; text-align: center; font-size: 26px; opacity: .5; }
+
+/* ---------- Ident ---------- */
+#ident {
+  background: radial-gradient(circle at 50% 45%, #2b6cff 0%, #12226b 55%, #070b24 100%);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+}
+#ident.hidden { display: none; }
+.ident-mark { width: 200px; height: 200px; margin-bottom: 20px; }
+.ident-logo { font-size: 170px; font-weight: 800; letter-spacing: -4px; text-shadow: 0 12px 40px rgba(0,0,0,.4); }
+.ident-sub { font-size: 56px; margin-top: 24px; opacity: .85; }
+
+/* ---------- Player ---------- */
+/* Nothing may be drawn over the YouTube player, so with the controls open
+   the player becomes a 16:9 frame and the controls sit underneath it. */
+#player-screen { background: #070b24; }
+#player { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; border: 0; }
+#player-screen.framed #player { left: 352px; top: 36px; width: 1216px; height: 684px; }
+.controls {
+  position: absolute; left: 0; right: 0; top: 744px; bottom: 0;
+  padding: 0 90px; box-sizing: border-box;
+}
+.controls-top { font-size: 34px; opacity: .9; }
+.live-dot { color: #ff3b3b; margin-right: 12px; }
+.c-channel { font-weight: 700; }
+.c-ends { margin-left: 28px; opacity: .7; }
+.c-title { font-size: 54px; font-weight: 800; margin: 8px 0 20px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.progress { height: 12px; background: rgba(255,255,255,.25); border-radius: 6px; overflow: hidden; }
+.progress-fill { height: 100%; width: 0; background: #ffd84a; }
+.controls-bottom { display: flex; align-items: center; justify-content: space-between; margin-top: 22px; }
+.c-note { float: right; color: #ffd84a; font-weight: 700; }
+.c-quality { float: right; margin-right: 28px; color: #9fe3ff; font-weight: 700; }
+.c-time, .c-next { font-size: 32px; opacity: .75; flex: 1; min-width: 0; }
+.c-next { text-align: right; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.buttons { display: flex; white-space: nowrap; }
+.buttons button {
+  font: 700 34px "SamsungOne", "Helvetica Neue", Arial, sans-serif;
+  color: #fff; background: rgba(255,255,255,.14);
+  border: 4px solid transparent; border-radius: 22px;
+  padding: 16px 28px; margin: 0 8px;
+}
+.buttons button.focused { background: #fff; color: #0b1033; transform: scale(1.08); }
+
+/* ---------- Off air ---------- */
+#offair { background: #000; }
+.bars { position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: flex; }
+.bars i { flex: 1; }
+.offair-card {
+  position: absolute; left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  width: 1100px; padding: 64px 60px; border-radius: 40px;
+  background: rgba(10, 14, 40, .93); text-align: center;
+  box-shadow: 0 30px 80px rgba(0,0,0,.6);
+}
+.offair-mark { width: 120px; height: 120px; margin-bottom: 6px; }
+.offair-name { font-size: 96px; font-weight: 800; }
+.offair-hint { font-size: 28px; margin-top: 26px; opacity: .55; }
+.offair-line { font-size: 52px; opacity: .85; margin-top: 4px; }
+.offair-next { font-size: 46px; margin-top: 40px; color: #ffd84a; }
+.offair-guide { list-style: none; padding: 0; margin: 30px auto 0; width: 640px; text-align: left; font-size: 36px; }
+.offair-guide li { padding: 8px 0; border-top: 1px solid rgba(255,255,255,.12); }
+.offair-guide li span { display: inline-block; width: 190px; opacity: .7; }
+.offair-guide li.head { border: 0; font-size: 28px; letter-spacing: 3px; text-transform: uppercase; opacity: .55; }
+.offair-guide li.done { opacity: .45; }
+.offair-guide li.now { color: #ff6b6b; }
+.offair-bye { font-size: 42px; margin-top: 34px; opacity: .8; }
+
+.debug {
+  position: absolute; right: 30px; top: 30px; max-width: 800px;
+  font: 24px/1.4 monospace; color: #ff8; background: rgba(0,0,0,.7);
+  padding: 10px 16px; border-radius: 10px; white-space: pre-wrap;
+}
+.debug:empty { display: none; }
+
+/* ---------- Exit confirmation and connection notice ---------- */
+.exit-dialog { position: absolute; top: 0; left: 0; width: 1920px; height: 1080px; background: rgba(0,0,0,.6); z-index: 50; }
+.exit-card {
+  position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+  width: 900px; padding: 64px 60px 56px; border-radius: 40px; text-align: center;
+  background: #141a42; box-shadow: 0 30px 80px rgba(0,0,0,.6);
+}
+.exit-title { font-size: 60px; font-weight: 800; margin-bottom: 48px; }
+.exit-card .buttons { justify-content: center; }
+/* Not shown over the player: there the notice goes in the controls (.c-note). */
+.net-notice {
+  position: absolute; top: 40px; right: 60px; z-index: 40;
+  font-size: 34px; font-weight: 700; padding: 14px 30px; border-radius: 16px;
+  background: rgba(229, 36, 44, .92);
+}
+/* Belt and braces: nothing floats over the player screen. */
+#player-screen:not(.hidden) ~ .net-notice, #player-screen:not(.hidden) ~ .debug { display: none; }

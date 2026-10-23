@@ -1,0 +1,5 @@
+<resources>
+    <style name="Station" parent="@android:style/Theme.DeviceDefault.NoActionBar.Fullscreen">
+        <item name="android:windowBackground">@android:color/black</item>
+    </style>
+</resources>

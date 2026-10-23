@@ -1,0 +1,28 @@
+{
+  "name": "Saturday Mornings",
+  "short_name": "Sat Mornings",
+  "description": "Your kids' TV station: set up their channels, programmes and shows, and add shows by sharing them from the YouTube app.",
+  "id": "./",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#E9E1CC",
+  "theme_color": "#23252F",
+  "categories": ["kids", "entertainment", "lifestyle"],
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "../assets/logo.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icon-maskable-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "TV guide", "url": "./#/guide" },
+    { "name": "Show library", "url": "./#/library" }
+  ],
+  "share_target": {
+    "action": "./",
+    "method": "GET",
+    "params": { "title": "title", "text": "text", "url": "url" }
+  }
+}

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=1920, height=1080">
+  <title>Saturday Mornings</title>
+  <style>
+    html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; color: #fff;
+      background: radial-gradient(circle at 50% 40%, #26357a 0%, #0b1033 70%);
+      font-family: "SamsungOne", "Helvetica Neue", Arial, sans-serif; }
+    .wrap { height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+    .logo { font-size: 130px; font-weight: 800; letter-spacing: -2px; }
+    .msg { font-size: 48px; margin-top: 30px; opacity: .85; }
+    .hint { font-size: 32px; margin-top: 24px; opacity: .6; max-width: 1300px; line-height: 1.4; }
+  </style>
+</head>
+<body>
+  <!--
+    What the Samsung actually installs. YouTube's player refuses to play on a
+    page with no web address (error 153), which is what an app loaded from the
+    TV's own files is. So this launcher opens Saturday Mornings from the Mac server,
+    giving it a real address. Same reason the Mac preview plays fine.
+  -->
+  <div class="wrap">
+    <img src="assets/logo.svg" alt="" style="width:220px;height:220px;margin-bottom:24px">
+    <div class="logo">Saturday Mornings</div>
+    <div class="hint" style="margin-top:6px">Real TV for kids. It starts, it ends.</div>
+    <div class="msg" id="msg">Tuning in…</div>
+    <div class="hint" id="hint"></div>
+    <div class="hint" id="steps" style="font-family:monospace;font-size:28px;opacity:.8" hidden>1 page loaded</div>
+  </div>
+  <script src="$WEBAPIS/webapis/webapis.js"></script>
+  <script src="js/config.js"></script>
+  <script>
+    // Startup progress, for diagnosing a stuck launch without a debugger.
+    // Only with debug: true in js/config.js: shown on screen and pinged to
+    // the server's log (the Mac server logs /ping).
+    var DEBUG = !!(window.SATURDAY_TV && SATURDAY_TV.debug);
+    if (DEBUG) document.getElementById("steps").hidden = false;
+    function step(msg) {
+      if (!DEBUG) return;
+      var el = document.getElementById("steps");
+      if (el) el.textContent += "  ·  " + msg;
+      try { new Image().src = SATURDAY_TV.server + "/ping?" + encodeURIComponent(msg) + "&t=" + Date.now(); } catch (e) {}
+    }
+    window.onerror = function (m, src, line) { step("error: " + m + " @" + line); };
+    step("2 script running");
+
+    (function () {
+      var server = window.SATURDAY_TV.server;
+      var serverOrigin = server.replace(/^(https?:\/\/[^\/]+).*$/, "$1");
+      var frame = null;
+
+      function exitApp() { try { tizen.application.getCurrentApplication().exit(); } catch (err) {} }
+
+      function screenSaver(on) {
+        try {
+          var ac = webapis.appcommon;
+          ac.setScreenSaver(on ? ac.AppCommonScreenSaverState.SCREEN_SAVER_ON
+                               : ac.AppCommonScreenSaverState.SCREEN_SAVER_OFF);
+        } catch (err) {}
+      }
+
+      // Media and channel keys must be claimed by this, the app's own page.
+      try {
+        tizen.tvinputdevice.registerKeyBatch(["MediaPlayPause", "MediaPlay", "MediaPause",
+          "MediaStop", "MediaFastForward", "MediaRewind", "ChannelUp", "ChannelDown"]);
+      } catch (e) {}
+
+      // This page stays in charge: Saturday Mornings runs in a full-screen frame from
+      // the Mac (so YouTube sees a real web address), while only this page
+      // can close the app or control the screensaver. The frame asks for
+      // those by message; any key that lands here is passed into the frame.
+      window.addEventListener("message", function (e) {
+        if (e.origin !== serverOrigin || !e.data) return;
+        if (e.data.type === "exit") exitApp();
+        if (e.data.type === "screensaver") screenSaver(!!e.data.on);
+      });
+
+      document.addEventListener("keydown", function (e) {
+        if (!frame) { if (e.keyCode === 10009) exitApp(); return; }
+        e.preventDefault();
+        frame.contentWindow.postMessage({ type: "key", keyCode: e.keyCode }, serverOrigin);
+        frame.focus();
+      });
+
+      function openApp() {
+        frame = document.createElement("iframe");
+        // Preview on the Mac: launch.html?test=2 passes test mode through.
+        frame.src = server + "/?tv=1" + (location.search ? "&" + location.search.slice(1) : "");
+        frame.setAttribute("allow", "autoplay; encrypted-media");
+        frame.style.cssText = "position:absolute;top:0;left:0;width:1920px;height:1080px;border:0;background:#000;";
+        document.body.appendChild(frame);
+        frame.onload = function () { frame.focus(); step("6 app running"); };
+      }
+
+      function tryServer() {
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", serverOrigin + "/api/health", true);
+        xhr.timeout = 6000;
+        xhr.onload = function () {
+          step("4 Mac answered " + xhr.status);
+          if (xhr.status === 200) { step("5 opening app"); openApp(); }
+          else offline();
+        };
+        xhr.onerror = function () { step("4 network error"); offline(); };
+        xhr.ontimeout = function () { step("4 timed out"); offline(); };
+        step("3 calling " + server);
+        xhr.send();
+      }
+
+      function offline() {
+        document.getElementById("msg").textContent = "Can't connect right now";
+        document.getElementById("hint").textContent =
+          "Check that the TV is connected to the internet. Trying again every 10 seconds. Press Back to close.";
+        setTimeout(tryServer, 10000);
+      }
+
+      tryServer();
+    })();
+  </script>
+</body>
+</html>

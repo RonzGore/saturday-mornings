@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<!-- This is the hosted Saturday Mornings edition's own page. Rewrite it for
+     your station before inviting anyone. CONTACT_EMAIL is filled in by
+     cloud/scripts/build.mjs from your wrangler config (vars). -->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Security · Saturday Mornings</title>
+  <meta name="theme-color" content="#23252F">
+  <link rel="icon" href="/assets/logo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/site.css">
+</head>
+<body class="paper">
+  <header class="top">
+    <a class="brand" href="/"><img src="/assets/logo.svg" alt=""><span>Saturday Mornings</span></a>
+  </header>
+
+  <main class="doc">
+    <h1>How we keep Saturday Mornings safe</h1>
+    <p class="muted">Effective 25 October 2026</p>
+
+    <p class="lede"><b>The short version.</b> There are no passwords to steal, kids never have accounts, every family's channels and TVs are walled off from every other family's, and you can delete everything yourself. If you find a problem, please <a href="#report">tell us</a>.</p>
+
+    <nav class="toc" aria-label="On this page">
+      <b>On this page</b>
+      <ol>
+        <li><a href="#signin">Signing in</a></li>
+        <li><a href="#data">Protecting your family's data</a></li>
+        <li><a href="#tvs">Linking TVs</a></li>
+        <li><a href="#kids">Kids</a></li>
+        <li><a href="#control">You stay in control</a></li>
+        <li><a href="#report">Report a security problem</a></li>
+      </ol>
+    </nav>
+
+    <h2 id="signin">1. Signing in</h2>
+    <ul>
+      <li><b>No passwords.</b> You sign in with a 6-digit code we email you, or with a passkey saved on your phone or computer.</li>
+      <li>Codes work once, expire after 10 minutes, and only in the browser that asked for them. Wrong guesses are counted and stopped.</li>
+      <li>A Cloudflare bot check runs before we send a code, and the number of codes is capped per email address and per network.</li>
+      <li>Passkeys use your device's own lock (face, fingerprint or PIN), which never leaves your device. We store only the public half.</li>
+      <li>Deleting your account asks you to type your email address, so it can't happen by accident.</li>
+    </ul>
+
+    <h2 id="data">2. Protecting your family's data</h2>
+    <ul>
+      <li>Everything travels over HTTPS only, and browsers are told to always use secure connections.</li>
+      <li>Sign-in codes, sessions and TV link keys are stored only in scrambled (hashed) form, so a copy of our database wouldn't let anyone sign in or pose as your TV.</li>
+      <li>Every request is checked against the family it belongs to, so one family can never see or change another family's kids, shows, times or TVs.</li>
+      <li>Our pages tell browsers which scripts may run and that they can't be shown inside other websites, which blocks common tricks.</li>
+      <li>A parent can only join a family by accepting an invite sent to their own email address, and only while the parent who sent it is still in the family.</li>
+      <li>We keep as little as we can, for as short a time as we can (see <a href="/privacy#how-long">how long we keep things</a>).</li>
+    </ul>
+
+    <h2 id="tvs">3. Linking TVs</h2>
+    <ul>
+      <li>A TV links with a short code it shows on its own screen. The code expires after 15 minutes and works once.</li>
+      <li>Only link a TV that's in front of you. A linked TV can show your family's channels and schedule, so treat a code someone sends you like a stranger's key.</li>
+      <li>When a TV is linked, the other parents in your family get a notification (if they've turned notifications on), and every TV is listed in <b>Your TVs</b>, where you can unlink it straight away.</li>
+      <li>When a parent leaves the family or is removed, the TVs they linked are unlinked with them, in case one is in their home.</li>
+    </ul>
+
+    <h2 id="kids">4. Kids</h2>
+    <ul>
+      <li>Kids never have accounts, never sign in and never type anything in.</li>
+      <li>The TV only plays shows a parent chose. There's no search, no feed of suggestions, no ads and no way to buy anything.</li>
+      <li>Settings live on the parent's phone, behind the parent's sign-in, never on the TV.</li>
+    </ul>
+
+    <h2 id="control">5. You stay in control</h2>
+    <ul>
+      <li>See and change everything in the app, any time.</li>
+      <li>Unlink any TV, or remove another parent from your family, in one step.</li>
+      <li>Delete your account under <b>Account › Delete account</b>, and your information is deleted straight away (backups expire within 30 days).</li>
+    </ul>
+
+    <h2 id="report">6. Report a security problem</h2>
+    <p>If you think you've found a security problem, please email <a href="mailto:CONTACT_EMAIL?subject=Security">CONTACT_EMAIL</a> with "Security" in the subject. Tell us what you found, where, and how to reproduce it. We aim to reply within a few business days, and we'll keep you posted while we fix it.</p>
+    <p>While you look, please:</p>
+    <ul>
+      <li>use only accounts, families and TVs that are your own, and don't view, change or delete anyone else's information;</li>
+      <li>don't slow down or disrupt the service, for example with heavy automated traffic;</li>
+      <li>give us a reasonable time to fix the problem before you tell anyone else.</li>
+    </ul>
+    <p>If you follow these rules and act in good faith, we won't take legal action against you for your research, and we'll thank you publicly if you'd like.</p>
+  </main>
+
+  <footer class="foot">Saturday Mornings · <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a> · <a href="/security">Security</a></footer>
+</body>
+</html>

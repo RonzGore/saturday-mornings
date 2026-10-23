@@ -1,0 +1,66 @@
+{
+  // Saturday Mornings on Cloudflare: one Worker serves sign-in (/), the parent
+  // app (/app/), the TV app (/tv/) and the API (/api/*), with D1 for data.
+  // Step by step: docs/guides/build-your-own-station.pdf
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "saturday-morning",
+  "main": "src/worker.js",
+  "compatibility_date": "2025-09-01",
+  "assets": {
+    "directory": "./public",
+    "binding": "ASSETS",
+    "run_worker_first": ["/api/*"]
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "saturday-morning",
+      // From `npx wrangler d1 create saturday-morning`
+      "database_id": "YOUR_DATABASE_ID",
+      "migrations_dir": "migrations"
+    }
+  ],
+  // Optional: your own domain (recommended: passkeys, email and the thumbnail
+  // cache work best there). Uncomment and use a hostname on a domain in your
+  // Cloudflare account.
+  // "routes": [{ "pattern": "tv.your-domain.com", "custom_domain": true }],
+  "workers_dev": true,
+  "vars": {
+    "APP_NAME": "Saturday Mornings",
+    // Passkey domain: your domain (e.g. "your-domain.com"), or leave empty to
+    // use whatever hostname the app is opened on.
+    "RP_ID": "",
+    // Sender for sign-in codes: an address on the domain verified in Resend.
+    "EMAIL_FROM": "Saturday Mornings <hello@your-domain.com>",
+    // Where your station lives (links in emails), e.g. "https://tv.your-domain.com".
+    "APP_URL": "",
+    "SITE_URL": "",
+    // What the sign-in page calls the website ("Read the Gazette"); default "our website".
+    "SITE_NAME": "",
+    // Shown on /privacy, /terms and the app's help link.
+    "CONTACT_EMAIL": "",
+    // Who runs the station and where, shown on /privacy, /terms and /security.
+    "OPERATOR_NAME": "",
+    "OPERATOR_ADDRESS": "",
+    // Contact for the push services about your notifications, e.g. "mailto:you@your-domain.com".
+    "VAPID_SUBJECT": "",
+    // Replies to waiting-list emails go here (only used with EARLY_ACCESS on).
+    "REPLY_TO": "",
+    // Optional Cloudflare Turnstile site key (public). Turnstile switches on
+    // once this and the TURNSTILE_SECRET secret are both set.
+    "TURNSTILE_SITE_KEY": "",
+    // "on": only approved emails can sign in; everyone else joins a waiting
+    // list. "off" for a family station: anyone who can reach it can sign in,
+    // so keep its address to yourself.
+    "EARLY_ACCESS": "off",
+    // Who sees Account > Early access (comma-separated emails).
+    "ADMIN_EMAILS": "",
+    // Family limits: TVs linked at once, and parents (invites included). 0 = no limit.
+    "MAX_TVS": "0",
+    "MAX_PARENTS": "0"
+  },
+  // Daily: refresh YouTube titles and thumbnails, delete any past 30 days.
+  // Every minute: waiting-list thank-yous and parents' notifications.
+  "triggers": { "crons": ["17 9 * * *", "* * * * *"] },
+  "observability": { "enabled": true }
+}

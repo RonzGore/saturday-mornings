@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Saturday Mornings</title>
+  <meta name="description" content="Real TV for kids. It starts, it ends. Give each kid their own TV channel with set times, and a station that signs off.">
+  <meta name="theme-color" content="#23252F">
+  <link rel="icon" href="/assets/logo.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="/site.css">
+</head>
+<body>
+  <header class="top">
+    <a class="brand" href="/"><img src="/assets/logo.svg" alt=""><span>Saturday Mornings</span></a>
+    <!-- SITE_NAV -->
+  </header>
+
+  <main class="hero">
+    <section class="pitch">
+      <div class="bars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      <h1>Real TV for kids.<br><span>It starts, it ends.</span></h1>
+      <p class="lead">Give each kid their own TV channel. You pick the shows and the times. When time's up, the station signs off. Not you.</p>
+      <ul class="points">
+        <li><b>Their own channel</b> on your TV, like CH 1 Maya TV</li>
+        <li><b>A real schedule</b>: different shows by day and time</li>
+        <li><b>A gentle sign-off</b> with when it's back, no fights</li>
+      </ul>
+      <!-- SITE_PROMO -->
+    </section>
+
+    <section class="card" id="auth" aria-live="polite">
+      <div id="step-start">
+        <h2>Parents, sign in</h2>
+        <p class="muted">Kids never see this. It's where you set up their channels.</p>
+        <button class="btn primary" id="passkey-btn" hidden>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 14a5 5 0 1 1 4.9-6H22v4h-2v3h-3v-3h-5.1A5 5 0 0 1 7 14Zm0-3a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z" fill="currentColor"/></svg>
+          Continue with passkey
+        </button>
+        <div class="or" id="or" hidden><span>or</span></div>
+        <form id="email-form">
+          <label for="email">Email</label>
+          <input id="email" type="email" autocomplete="email webauthn" placeholder="you@example.com" required>
+          <div class="human" id="human"></div>
+          <button class="btn" id="email-btn" type="submit">Email me a code</button>
+          <p class="small turnstile-note">Protected by Cloudflare Turnstile. Cloudflare's <a href="https://www.cloudflare.com/turnstile-privacy-policy/" target="_blank" rel="noopener">Turnstile privacy addendum</a>, <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener">Privacy Policy</a> and <a href="https://www.cloudflare.com/website-terms/" target="_blank" rel="noopener">Terms</a> apply.</p>
+        </form>
+        <p class="small muted">By continuing, you agree to our <a href="/terms">Terms</a> and <a href="/privacy">Privacy policy</a>, and to the <a href="https://www.youtube.com/t/terms">YouTube Terms of Service</a>.</p>
+      </div>
+
+      <div id="step-code" hidden>
+        <h2>Check your email</h2>
+        <p class="muted">We sent a 6-digit code to <b id="sent-to"></b></p>
+        <form id="code-form">
+          <input id="code" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]*" maxlength="6" placeholder="••••••" class="code" required>
+          <button class="btn primary" type="submit">Sign in</button>
+        </form>
+        <p class="dev" id="dev" hidden></p>
+        <p class="small"><a href="#" id="resend">Send a new code</a> · <a href="#" id="change">Use a different email</a></p>
+      </div>
+
+      <div id="step-waitlist" hidden>
+        <h2>You're on the list!</h2>
+        <p class="muted">Thanks for your interest in Saturday Mornings. We're letting families in a few at a time while we get everything just right.</p>
+        <p class="muted">We've added <b id="waitlist-email"></b> to the waiting list and sent you a thank-you email. When it's your turn, we'll email you again, with your <b>first month free</b>.</p>
+        <p class="small"><a href="#" id="waitlist-back">Use a different email</a><!-- SITE_LINK --></p>
+      </div>
+
+      <div id="step-passkey" hidden>
+        <h2>Sign in faster next time</h2>
+        <p class="muted">Add a passkey and next time it's just Face ID, Touch ID or your fingerprint. No codes.</p>
+        <button class="btn primary" id="add-passkey">Add a passkey</button>
+        <button class="btn ghost" id="skip-passkey">Not now</button>
+      </div>
+
+      <div id="step-signed-in" hidden>
+        <h2>You're signed in</h2>
+        <p class="muted" id="signed-in-as"></p>
+        <a class="btn primary" href="/app/">Open your channels</a>
+        <button class="btn ghost" id="signout">Sign out</button>
+      </div>
+
+      <p class="error" id="error" hidden></p>
+      <p class="muted" id="deleted" hidden>Your account and everything in it have been deleted.</p>
+    </section>
+  </main>
+
+  <footer class="foot">Saturday Mornings · Real TV for kids · <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a> · <a href="/security">Security</a></footer>
+
+  <script src="/js/webauthn.js"></script>
+  <script src="/human.js"></script>
+<script src="/signin.js"></script>
+</body>
+</html>

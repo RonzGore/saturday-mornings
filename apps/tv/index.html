@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=1920, height=1080">
+  <title>Saturday Mornings</title>
+  <link rel="stylesheet" href="css/style.css">
+  <!-- Samsung's TV APIs; only exist on the TV, ignored elsewhere -->
+  <script src="$WEBAPIS/webapis/webapis.js"></script>
+</head>
+<body>
+  <!-- First run: set up on the phone -->
+  <section id="setup" class="screen hidden">
+    <div class="setup-wrap">
+      <div class="setup-text">
+        <div class="brand"><img src="assets/logo.svg" alt="">Saturday Mornings</div>
+        <h1 id="setup-title">Let's set up your channels</h1>
+        <ol class="setup-steps" id="setup-steps">
+          <li>Scan this code with your phone camera</li>
+          <li>Add your kids and give each one a channel</li>
+          <li>Pick the times and paste in their YouTube videos</li>
+        </ol>
+        <div class="setup-code" id="setup-code"></div>
+        <p class="setup-url" id="setup-url"></p>
+        <p class="setup-wait" id="setup-wait">This screen updates as soon as you save on the phone.</p>
+      </div>
+      <div class="qr" id="setup-qr"></div>
+    </div>
+  </section>
+
+  <!-- Channel picker: each kid is a TV channel -->
+  <section id="picker" class="screen hidden">
+    <header class="tv-top">
+      <img class="tv-logo" src="assets/logo.svg" alt="">
+      <div class="tv-title">What's on?</div>
+      <div class="tv-clock" id="picker-clock"></div>
+    </header>
+    <div class="channel-row" id="picker-row"></div>
+    <div class="guide-btn" id="guide-btn"><span class="guide-icon">☰</span> Channels Guide</div>
+  </section>
+
+  <!-- Channels Guide: TV listings grid -->
+  <section id="guide" class="screen hidden">
+    <header class="tv-top">
+      <img class="tv-logo" src="assets/logo.svg" alt="">
+      <div class="tv-title">Channels Guide</div>
+      <div class="g-days" id="g-days"></div>
+      <div class="tv-clock" id="guide-clock"></div>
+    </header>
+    <div class="g-grid">
+      <div class="g-labels" id="g-labels"></div>
+      <div class="g-viewport">
+        <div class="g-track" id="g-track">
+          <div class="g-hours" id="g-hours"></div>
+          <div class="g-rows" id="g-rows"></div>
+          <div class="g-now" id="g-now"></div>
+        </div>
+      </div>
+    </div>
+    <div class="g-detail" id="g-detail"></div>
+    <div class="g-hint">◀ ▶ move &nbsp;·&nbsp; ▲ ▼ channels &amp; days &nbsp;·&nbsp; OK watch what's on &nbsp;·&nbsp; ↩ back</div>
+  </section>
+
+  <!-- Station ident / between shows -->
+  <section id="ident" class="screen hidden">
+    <img class="ident-mark" src="assets/logo.svg" alt="">
+    <div class="ident-logo" id="ident-name"></div>
+    <div class="ident-sub" id="ident-sub"></div>
+  </section>
+
+  <!-- Player. YouTube allows nothing drawn over the player, so opening the
+       controls shrinks it into a frame and the controls sit below it. -->
+  <section id="player-screen" class="screen hidden">
+    <div id="player"></div>
+    <div id="controls" class="controls hidden">
+      <div class="controls-top">
+        <span class="live-dot">●</span>
+        <span id="c-channel" class="c-channel"></span>
+        <span id="c-ends" class="c-ends"></span>
+        <span id="c-note" class="c-note"></span>
+        <span id="c-quality" class="c-quality"></span>
+      </div>
+      <div id="c-title" class="c-title"></div>
+      <div class="progress"><div id="c-progress" class="progress-fill"></div></div>
+      <div class="controls-bottom">
+        <span id="c-time" class="c-time"></span>
+        <div class="buttons" id="c-buttons">
+          <button data-act="restart">↺ Start again</button>
+          <button data-act="toggle" id="btn-toggle">❚❚ Pause</button>
+          <button data-act="next" id="btn-next">Next ▶▶</button>
+          <button data-act="guide">☰ Guide</button>
+          <button data-act="cc" id="btn-cc">CC Off</button>
+          <button data-act="quality">⚙ Quality</button>
+        </div>
+        <span id="c-next" class="c-next"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Off air -->
+  <section id="offair" class="screen hidden">
+    <div class="bars">
+      <i style="background:#c0c0c0"></i><i style="background:#c0c000"></i>
+      <i style="background:#00c0c0"></i><i style="background:#00c000"></i>
+      <i style="background:#c000c0"></i><i style="background:#c00000"></i>
+      <i style="background:#0000c0"></i>
+    </div>
+    <div class="offair-card">
+      <img class="offair-mark" src="assets/logo.svg" alt="">
+      <div class="offair-name" id="offair-name"></div>
+      <div class="offair-line">is off for now</div>
+      <div class="offair-next" id="offair-next"></div>
+      <ul class="offair-guide" id="offair-guide"></ul>
+      <div class="offair-bye" id="offair-bye"></div>
+      <div class="offair-hint">OK · Channels Guide &nbsp;&nbsp; ↩ · All channels</div>
+    </div>
+  </section>
+
+  <!-- Back on a top-level screen: ask before closing (Samsung requires it) -->
+  <div id="exit-dialog" class="exit-dialog hidden">
+    <div class="exit-card">
+      <div class="exit-title">Close Saturday Mornings?</div>
+      <div class="buttons"><button id="exit-stay">Stay</button><button id="exit-close">Close</button></div>
+    </div>
+  </div>
+
+  <!-- Shown while the TV can't reach the internet -->
+  <div id="net-notice" class="net-notice hidden">No internet connection · trying again</div>
+
+  <div id="debug" class="debug"></div>
+
+  <script src="js/qrcode.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/schedule.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

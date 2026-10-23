@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#23252F">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Saturday Mornings">
+  <title>Saturday Mornings</title>
+  <link rel="icon" href="../assets/logo.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+  <link rel="manifest" href="manifest.json">
+  <link rel="preload" href="fonts/oswald.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/vt323.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="setup.css">
+</head>
+<body>
+  <header class="topbar">
+    <button class="icon-key" id="back" aria-label="Back" hidden>
+      <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M13 4 L7 10 L13 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <svg class="topbar-logo" id="logo" viewBox="0 0 34 34" aria-hidden="true"><circle cx="17" cy="17" r="15" fill="#1E2A80" stroke="#F7F2E6" stroke-width="2"/><path d="M17 17 L17 4 A13 13 0 0 1 28 23 Z" fill="#E5242C"/><path d="M17 17 L28 23 A13 13 0 0 1 22 29 Z" fill="#FFD84A"/><circle cx="17" cy="17" r="7" fill="#23252F" stroke="#F7F2E6" stroke-width="1.6"/><path d="M15 13.5 L21 17 L15 20.5 Z" fill="#F7F2E6"/></svg>
+    <span class="ch-badge" id="ch-badge" hidden></span>
+    <h1 class="topbar-title" id="title">Saturday Mornings</h1>
+    <span class="saved" id="saved" role="status" aria-live="polite"></span>
+    <span id="top-extra"></span>
+  </header>
+  <main id="view"></main>
+  <nav class="tabbar" id="tabbar" aria-label="Main"></nav>
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+  <script src="../js/schedule.js"></script>
+  <script src="../js/webauthn.js"></script>
+  <script src="setup.js"></script>
+</body>
+</html>

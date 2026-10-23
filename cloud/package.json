@@ -1,0 +1,20 @@
+{
+  "name": "saturday-morning-cloud",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "db:local": "node scripts/wrangler.mjs d1 migrations apply DB --local",
+    "dev": "npm run build && npm run db:local && node scripts/wrangler.mjs dev --ip 0.0.0.0 --port 8787",
+    "deploy": "npm run build && node scripts/wrangler.mjs d1 migrations apply DB --remote && node scripts/wrangler.mjs deploy",
+    "wrangler": "node scripts/wrangler.mjs",
+    "test": "node --test test/"
+  },
+  "dependencies": {
+    "@simplewebauthn/server": "14.0.3"
+  },
+  "devDependencies": {
+    "@simplewebauthn/browser": "14.0.0",
+    "wrangler": "4.151.1"
+  }
+}

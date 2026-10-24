@@ -26,7 +26,7 @@ turning it off, because the TV does it.
     <td width="50%"><img src="docs/images/tv-channels-guide.webp" alt="The Channels Guide, a grid of channels and times like old TV listings"><br>The Channels Guide shows what's on and when each channel is back.</td>
   </tr>
   <tr>
-    <td><img src="docs/images/tv-sign-off.webp" alt="Arjun TV is off for now, over colour bars, with the next show at 8:00 PM"><br>When time's up, the channel signs off and says when it returns.</td>
+    <td><img src="docs/images/tv-sign-off.webp" alt="A channel is off for now, over colour bars, with the next show at 8:00 PM"><br>When time's up, the channel signs off and says when it returns.</td>
     <td><img src="docs/images/tv-link.webp" alt="The TV's Link this TV screen with a short code and a QR code"><br>A TV links with a short code, just once.</td>
   </tr>
 </table>

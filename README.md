@@ -8,7 +8,8 @@
 <a href="https://saturdaymornings.tv">saturdaymornings.tv</a></p>
 
 <p align="center">
-  <a href="https://saturdaymornings.tv/?film"><img src="docs/images/intro-film.jpg" width="640" alt="Watch the 90-second story of Saturday Mornings"></a>
+  <a href="https://saturdaymornings.tv/?film"><img src="docs/images/intro-film-preview.webp" width="720" alt="Moments from the Saturday Mornings film: a parent picks the shows and times, the channel comes on by itself, then signs off with colour bars"></a><br>
+  <a href="https://saturdaymornings.tv/?film"><b>Watch the full 90-second film, with sound</b></a>
 </p>
 
 Saturday Mornings gives each child their own TV channel of shows you choose,
@@ -17,11 +18,33 @@ up, the station signs off with colour bars and tells them when it's back.
 There's no autoplay and no "up next" screen, and nobody has to argue about
 turning it off, because the TV does it.
 
-<p>
-  <img src="docs/images/parent-app-link.webp" width="230" alt="Linking a TV in the parent app: type the code the TV shows">
-  <img src="docs/images/parent-app-timer.webp" width="230" alt="The VCR-style timer: on air 8:00 AM, off air 8:40 AM">
-</p>
-<img src="docs/images/tv-link.webp" width="470" alt="The TV app's Link this TV screen with a short code and a QR code">
+## On the TV
+
+<table>
+  <tr>
+    <td width="50%"><img src="docs/images/tv-whats-on.webp" alt="The What's on? screen with three kids' channels, all on air"><br>Each kid gets their own channel.</td>
+    <td width="50%"><img src="docs/images/tv-channels-guide.webp" alt="The Channels Guide, a grid of channels and times like old TV listings"><br>The Channels Guide shows what's on and when each channel is back.</td>
+  </tr>
+  <tr>
+    <td><img src="docs/images/tv-sign-off.webp" alt="Arjun TV is off for now, over colour bars, with the next show at 8:00 PM"><br>When time's up, the channel signs off and says when it returns.</td>
+    <td><img src="docs/images/tv-link.webp" alt="The TV's Link this TV screen with a short code and a QR code"><br>A TV links with a short code, just once.</td>
+  </tr>
+</table>
+
+## On your phone
+
+<table>
+  <tr>
+    <td width="25%"><img src="docs/images/parent-app-channels.webp" alt="The parent app's home screen with each kid's channel and the living room TV"><br>Every channel at a glance</td>
+    <td width="25%"><img src="docs/images/parent-app-library.webp" alt="The family's show library of YouTube shows"><br>Your family's show library</td>
+    <td width="25%"><img src="docs/images/parent-app-timer.webp" alt="The VCR-style timer, on air 8:00 AM, off air 8:40 AM"><br>A VCR-style timer, to the minute</td>
+    <td width="25%"><img src="docs/images/parent-app-link.webp" alt="Linking a TV in the parent app by typing the code the TV shows"><br>Type the code the TV shows</td>
+  </tr>
+</table>
+
+<p align="center"><img src="docs/images/parent-app-notifications.webp" width="360" alt="Lock-screen notifications: a channel signed off with a +10 min button, a channel coming on in 9 minutes, and a TV that isn't tuned in"><br>
+The station tells you when a show is about to start, when a channel signs off
+(with a "+10 min" button), and when a TV isn't tuned in.</p>
 
 ## Set it up
 
